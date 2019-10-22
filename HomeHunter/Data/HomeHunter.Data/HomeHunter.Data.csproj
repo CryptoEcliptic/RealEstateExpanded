@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190630110311_EstateAndAddressEntities.cs" />
+    <Compile Remove="Migrations\20190630110311_EstateAndAddressEntities.Designer.cs" />
+    <Compile Remove="Migrations\20190701064146_RealestateOffersCollection.cs" />
+    <Compile Remove="Migrations\20190701064146_RealestateOffersCollection.Designer.cs" />
+    <Compile Remove="Migrations\20190702051319_NeighbourhoodCityRelation.cs" />
+    <Compile Remove="Migrations\20190702051319_NeighbourhoodCityRelation.Designer.cs" />
+    <Compile Remove="Migrations\20190702052026_neighbourhoodsRelations.cs" />
+    <Compile Remove="Migrations\20190702052026_neighbourhoodsRelations.Designer.cs" />
+    <Compile Remove="Migrations\20190702053216_NeighbourhoodsRelations.cs" />
+    <Compile Remove="Migrations\20190702053216_NeighbourhoodsRelations.Designer.cs" />
+    <Compile Remove="Migrations\20190702054537_final.cs" />
+    <Compile Remove="Migrations\20190702054537_final.Designer.cs" />
+    <Compile Remove="Migrations\20190702055016_Cities_Addresses.cs" />
+    <Compile Remove="Migrations\20190702055016_Cities_Addresses.Designer.cs" />
+    <Compile Remove="Migrations\20190706164727_AdditionalDbConstraints.cs" />
+    <Compile Remove="Migrations\20190706164727_AdditionalDbConstraints.Designer.cs" />
+    <Compile Remove="Migrations\20190707075724_AddedBuildingTypes.cs" />
+    <Compile Remove="Migrations\20190707075724_AddedBuildingTypes.Designer.cs" />
+    <Compile Remove="Migrations\20190711065328_City_NeighbourhoodRelation.cs" />
+    <Compile Remove="Migrations\20190711065328_City_NeighbourhoodRelation.Designer.cs" />
+    <Compile Remove="Migrations\20190724105753_OffersPropertyUpdate.cs" />
+    <Compile Remove="Migrations\20190724105753_OffersPropertyUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20190724110412_OffersPropertyUpdate.cs" />
+    <Compile Remove="Migrations\20190724110412_OffersPropertyUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20190805161621_PricePerSquMeterRealEstateProperty.cs" />
+    <Compile Remove="Migrations\20190805161621_PricePerSquMeterRealEstateProperty.Designer.cs" />
+    <Compile Remove="Migrations\20190805162744_PricePerSquMeterRealEstateProperty.cs" />
+    <Compile Remove="Migrations\20190805162744_PricePerSquMeterRealEstateProperty.Designer.cs" />
+    <Compile Remove="Migrations\20190805164245_PricePerSquMeterRealEstateProperty.cs" />
+    <Compile Remove="Migrations\20190805164245_PricePerSquMeterRealEstateProperty.Designer.cs" />
+    <Compile Remove="Migrations\20190805164755_PricePerSquMeterRealEstateProperty.cs" />
+    <Compile Remove="Migrations\20190805164755_PricePerSquMeterRealEstateProperty.Designer.cs" />
+    <Compile Remove="Migrations\20190805170221_PricePerSquMeterRealEstateProperty.cs" />
+    <Compile Remove="Migrations\20190805170221_PricePerSquMeterRealEstateProperty.Designer.cs" />
+    <Compile Remove="Migrations\20191015152242_LastLoginNullable.cs" />
+    <Compile Remove="Migrations\20191015152242_LastLoginNullable.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.8.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\HomeHunterCommon\HomeHunter.Common.csproj" />
+    <ProjectReference Include="..\HomeHunter.Domain\HomeHunter.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+﻿@page
+@model RegisterModel
+@using Microsoft.AspNetCore.Identity
+@using HomeHunter.Domain
+@inject SignInManager<HomeHunterUser> SignInManager
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+@if (!SignInManager.IsSignedIn(User))
+{
+<div class="container">
+    <div class="register col-md-5 col-md-offset-3">
+    </div>
+</div>
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

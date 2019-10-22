@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Home Hunter</title>
+
+
+    <!-- Google fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- font awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="~/lib/assets/bootstrap/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <!-- datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+
+    <!-- animate.css -->
+    <link rel="stylesheet" href="~/lib/assets/animate/animate.css" />
+    <link rel="stylesheet" href="~/lib/assets/animate/set.css" />
+
+    <!-- gallery -->
+    <link rel="stylesheet" href="~/lib/assets/gallery/blueimp-gallery.min.css">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="~/lib/images/favicon_large.ico" type="image/x-icon">
+    <link rel="icon" href="~/lib/images/favicon_large.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="~/lib/assets/style.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="topbar animated fadeInLeftBig"></div>
+
+        <!-- Header Starts -->
+        <div class="navbar-wrapper" id="top-page-nav">
+            <div class="container">
+                <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="top-nav">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <!-- Nav Starts -->
+                        <div class="navbar-collapse  collapse">
+                            <partial name="_LoginPartial" />
+                        </div>
+                        <!-- #Nav Ends -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- #Header Starts -->
+    <main class="d-flex">
+        <partial name="_CookieConsentPartial" />
+        @RenderBody()
+    </main>
+    <!-- Footer Starts -->
+    <div class="footer text-center spacer">
+        Copyright @DateTime.Now.Year Home Hunter Ltd. All rights reserved.
+    </div>
+    <!-- # Footer Ends -->
+    <a href="#top-page-nav" class="gototop "><i class="fa fa-angle-up  fa-3x"></i></a>
+
+
+
+    <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+        <!-- The container for the modal slides -->
+        <div class="slides"></div>
+        <!-- Controls for the borderless lightbox -->
+        <h3 class="title">Title</h3>
+        <a class="prev">‹</a>
+        <a class="next">›</a>
+        <a class="close">×</a>
+        <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    </div>
+
+
+    <!-- jquery -->
+    <script src="~/lib/jquery/jquery.js"></script>
+
+    <!-- wow script -->
+    <script src="~/lib/wow/wow.min.js"></script>
+
+
+    <!-- boostrap -->
+    <script src="~/lib/assets/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+
+    <!-- jquery mobile -->
+    <script src="~/lib/jquery.touchswipe/jquery.touchSwipe.min.js"></script>
+    <script src="~/lib/assets/respond/respond.js"></script>
+
+    <!-- gallery -->
+    <script src="~/lib/assets/gallery/jquery.blueimp-gallery.min.js"></script>
+
+    <!-- datatables -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

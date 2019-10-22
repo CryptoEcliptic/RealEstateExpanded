@@ -1,0 +1,54 @@
+﻿@using HomeHunter.Common;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- works -->
+<div id="works" class="clearfix grid">
+    <figure class="effect-oscar  wowload fadeIn">
+        <img src="~/lib/images/apartment-architecture-balcony.jpg" alt="img01" />
+        <figcaption>
+            <h2>Продажби</h2>
+            <p>
+                <a asp-controller="Offer" asp-action="IndexSales">Вижте обявите</a>
+            </p>
+        </figcaption>
+    </figure>
+    <figure class="effect-oscar wowload fadeIn">
+        <img src="~/lib/images/app-bricks.jpg" alt="img01" />
+        <figcaption>
+            <h2>Наеми</h2>
+            <p>
+                <a asp-controller="Offer" asp-action="IndexRentals">Вижте обявите</a>
+            </p>
+        </figcaption>
+    </figure>
+    <figure class="effect-oscar wowload fadeIn">
+        <img src="~/lib/images/areal-architecture.jpg" alt="img01" />
+        <figcaption>
+            <h2>Колко струва имотът ми?</h2>
+            <p>
+                Тук може да намерите информация за приблизителната цена на апартамента Ви.<br>
+              <a asp-controller="Home" asp-action="PredictPrice">Вижте</a>
+            </p>
+        </figcaption>
+    </figure>
+</div>
+
+<!-- works -->
+<!-- Cirlce Starts -->
+<div id="about" class="container spacer about">
+    <h2 class="text-center wowload fadeInUp">Пълно съдействие при покупко-продажба или наемане на недвижим имот.</h2>
+    <div class="row">
+        <div class="col-sm-6 wowload fadeInLeft">
+            <h4><i class="fa fa-home"></i> За нас</h4>
+            <p align ="justify">@GlobalConstants.CompanyName е на пазара повече от 10 години. Занимаваме се с покупко-продажби на недвижими имоти главно в сегмент жилища и офиси. Стараем се в максимална степен да съдействаме на клиентите си, подпомагайки цялостния процес на покупко-продажба - организиране на огледи, публикуване на обяви, подготовка на документацията, организиране на изповядване на сделката.</p>
+        </div>
+        <div class="col-sm-4 wowload fadeInRight col-md-offset-2" style="padding-left:40px;">
+            <h4><i class="fa fa-phone"></i>Свържете се с нас</h4>
+            <p>Адрес: гр. София, ул. Христо Белчев 1А</p>
+            <p>Телефон: +359 888 123 456</p>
+            <p>Email: homehunter.office@homehunter.bg</p>
+        </div>
+    </div>
+</div>

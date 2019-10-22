@@ -1,0 +1,26 @@
+﻿@model HomeHunter.Models.BindingModels.Image.ImageChangeableBindingModel
+
+<link rel="stylesheet" href="~/lib/assets/upload_image.css">
+
+@foreach (var item in Model.Images.OrderBy(x => x.Sequence))
+{
+  
+    <img id="myImg" src="@item.Url" class="myImages img-thumbnail img-h-block">
+    <div id="myModal" class="modal">
+        <!-- The Close Button -->
+        <span class="close">&times;</span>
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+    </div>
+}
+
+@section Scripts{
+
+    <script src="~/lib/assets/modal_images.js" asp-append-version="true"></script>
+}
+
+
+
+
