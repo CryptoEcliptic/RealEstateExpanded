@@ -28,7 +28,7 @@ namespace HomeHunter.Services
         private readonly UserManager<HomeHunterUser> userManager;
         private readonly IApplicationEmailSender emailSender;
 
-        public UserServices(HomeHunterDbContext context, 
+        public UserServices(HomeHunterDbContext context,
             IMapper mapper,
             UserManager<HomeHunterUser> userManager,
             IApplicationEmailSender emailSender)
@@ -44,7 +44,7 @@ namespace HomeHunter.Services
             var usersFromDb = await this.userManager.Users
                 .Where(x => x.IsDeleted == false)
                 .ToListAsync();
-                
+
             var userIndexServiceModel = this.mapper.Map<List<UserIndexServiceModel>>(usersFromDb);
 
             return userIndexServiceModel;
@@ -117,18 +117,10 @@ namespace HomeHunter.Services
 
         public async Task<bool> SendVerificationEmail(string callBackUrl, string email)
         {
-            try
-            {
-                await this.emailSender.SendEmailAsync(email, $"Потвърждаване на регистрацията Ви в {GlobalConstants.CompanyName}",
-               $"Благодарим Ви, че се регистрирахте в интернет страницата на {GlobalConstants.CompanyName}! За да потвърдите валидността на email-a си, моля последвайте <a href='{HtmlEncoder.Default.Encode(callBackUrl)}'>линка</a>.");
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            await this.emailSender.SendEmailAsync(email, $"Потвърждаване на регистрацията Ви в {GlobalConstants.CompanyName}",
+           $"Благодарим Ви, че се регистрирахте в интернет страницата на {GlobalConstants.CompanyName}! За да потвърдите валидността на email-a си, моля последвайте <a href='{HtmlEncoder.Default.Encode(callBackUrl)}'>линка</a>.");
 
             return true;
-
         }
 
         public async Task<HomeHunterUser> GetUserById(string userId)

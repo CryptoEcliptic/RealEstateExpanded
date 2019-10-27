@@ -126,7 +126,7 @@ namespace HomeHunter.Services
         {
             if (string.IsNullOrEmpty(estateId))
             {
-                throw new InvalidOperationException(InvalidRealEstateIdMessage);
+                throw new ArgumentNullException(InvalidRealEstateIdMessage);
             }
 
             var realEstateImages = this.context
