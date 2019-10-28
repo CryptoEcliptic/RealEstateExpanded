@@ -176,7 +176,7 @@ namespace HomeHunterTests
             var imageServices = new ImageServices(context, mapper, realEstateServices.Object);
             var realEstateId = "";
 
-            Assert.ThrowsAsync<InvalidOperationException>(() => imageServices.RemoveImages(realEstateId), ExceptionMessage);
+            Assert.ThrowsAsync<ArgumentNullException>(() => imageServices.RemoveImages(realEstateId), ExceptionMessage);
         }
 
         [Test]

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace HomeHunter.Services
 {
@@ -69,7 +70,6 @@ namespace HomeHunter.Services
                     UserId = user.Id,
                     Code = code,
                     Email = user.Email
-
                 };
                 return userReturnModel;
             }
