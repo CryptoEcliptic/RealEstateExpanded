@@ -4,7 +4,7 @@
 :page_facing_up: Data
 - Data layer
 
-:page_facing_up: Common
+:page_facing_up: HomeHunterCommon
 - The static class containing the application global constants
 
 :page_facing_up: Services
