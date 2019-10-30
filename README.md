@@ -1,4 +1,4 @@
-# RealEstateExpanded
+# HomeHunterExpanded
 This repository contains an extended version of the initial HomeHunter project which was introduced as an exam task for the SoftUni course ASP .NET Core in September 2019.
 
 🛠 Used technologies:
