@@ -81,7 +81,7 @@ namespace HomeHunter.App.Controllers
         public async Task<IActionResult> IndexSales()
         {
             var ip = this.accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            string visitorId = HttpContext.Request.Cookies["VisitorId"];
+            string visitorId = HttpContext.Request.Cookies["ai_user"];
             await this.visitorSessionServices.AddSessionInTheDb(ip, visitorId);
 
             var condition = OfferType.Sale;
@@ -104,7 +104,7 @@ namespace HomeHunter.App.Controllers
         public async Task<IActionResult> IndexRentals()
         {
             var ip = this.accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            string visitorId = HttpContext.Request.Cookies["VisitorId"];
+            string visitorId = HttpContext.Request.Cookies["ai_user"];
             await this.visitorSessionServices.AddSessionInTheDb(ip, visitorId);
 
             var condition = OfferType.Rental;

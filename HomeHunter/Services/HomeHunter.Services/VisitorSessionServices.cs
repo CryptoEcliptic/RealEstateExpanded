@@ -15,19 +15,19 @@ namespace HomeHunter.Services
             this.context = context;
         }
 
-        public async Task<bool> AddSessionInTheDb(string ipAddress, string visitorId)
+        public async Task<bool> AddSessionInTheDb(string ipAddress, string ai_user)
         {
-            if (string.IsNullOrEmpty(ipAddress) || string.IsNullOrEmpty(visitorId))
+            if (string.IsNullOrEmpty(ipAddress) || string.IsNullOrEmpty(ai_user))
             {
                 return false;
             }
 
-            if (visitorId != null && !this.context.VisitorsSessions.Any(x => x.VisitorId == visitorId))
+            if (!this.context.VisitorsSessions.Any(x => x.VisitorId == ai_user))
             {
                 var visitorSession = new VisitorSession
                 {
                     IpAddress = ipAddress,
-                    VisitorId = visitorId,
+                    VisitorId = ai_user,
                 };
 
                 this.context.VisitorsSessions.Add(visitorSession);

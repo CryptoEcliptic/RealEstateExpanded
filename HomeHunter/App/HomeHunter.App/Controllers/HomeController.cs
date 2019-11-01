@@ -42,7 +42,7 @@ namespace HomeHunter.App.Controllers
         public IActionResult Index()
         {
             var ip = this.accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            string visitorId = HttpContext.Request.Cookies["VisitorId"];
+            string visitorId = HttpContext.Request.Cookies["ai_user"];
 
             this.visitorSessionServices.AddSessionInTheDb(ip, visitorId);
 
