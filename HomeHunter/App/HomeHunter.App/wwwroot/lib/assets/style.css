@@ -22,6 +22,7 @@ body {
 
 .backgr-img-details {
     background-image: url('../images/neveroqtna-vila-v-planinata-na_widen.jpg');
+
 }
 
 .datatable-larger-font {
@@ -36,7 +37,6 @@ body {
     display: block;
     border-radius:7px;
     clear: both;
-
 }
 
 .active-datatable-color {

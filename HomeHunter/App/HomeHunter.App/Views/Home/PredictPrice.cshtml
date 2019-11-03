@@ -5,7 +5,7 @@
 }
 <link rel="stylesheet" href="~/lib/assets/modal_images.css">
 
-<div class="container-fluid backgr-img-details paddingElement" style="height:750px">
+<div class="container-fluid backgr-img-details paddingElement" style="height:auto">
     <br />
     <div class="jumbotron jumbotron-fluid col-md-5 col-md-offset-6" style="border-radius:5px;">
         <div class="container">
@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <form method="post" class="form border-primary-4 rounded col-md-6 col-md-offset-5" style="padding-left:270px;">
             <div asp-validation-summary="ModelOnly"></div>
-            <div class="col-md-5">
+            <div class="col-md-5" style="min-width:160px">
                 <div id="name-and-price-holder" class="d-flex justify-content-between">
                     <div class="form-group mx-auto w-45">
                         <input type="text"
@@ -48,13 +48,13 @@
                             <option>ДА</option>
                             <option>НЕ</option>
                             <option>Лок.отопл.</option>
-                           
+
                         </select>
                         <span asp-validation-for="District" class="text-danger"></span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5" style="min-width:160px">
                 <div class="form-group mx-auto w-45">
                     <input type="number"
                            class="form-control text-primary text-center"
@@ -67,11 +67,11 @@
                     <select class="form-control text-center" id="type" asp-for="District">
                         <option selected disabled>--- Район ---</option>
                         @foreach (var type in (IEnumerable
-                        <string>
-                            )this.ViewData["Districts"])
-                            {
+                       <string>
+                           )this.ViewData["Districts"])
+                        {
                             <option value="@type">@type</option>
-                            }
+                        }
                     </select>
                     <span asp-validation-for="District" class="text-danger"></span>
                 </div>
@@ -79,11 +79,11 @@
                     <select class="form-control text-center" id="type" asp-for="Type">
                         <option selected disabled>---Тип апартамент ---</option>
                         @foreach (var type in (IEnumerable
-                        <string>
-                            )this.ViewData["AppartmentTypes"])
-                            {
+                       <string>
+                           )this.ViewData["AppartmentTypes"])
+                        {
                             <option value="@type">@type</option>
-                            }
+                        }
                     </select>
                     <span asp-validation-for="Type" class="text-danger"></span>
                 </div>
@@ -91,22 +91,22 @@
                     <select class="form-control text-center" id="type" asp-for="BuildingType">
                         <option selected disabled>--- Тип строителство ---</option>
                         @foreach (var type in (IEnumerable
-                        <string>
-                            )this.ViewData["BuildingTypes"])
-                            {
+                       <string>
+                           )this.ViewData["BuildingTypes"])
+                        {
                             <option value="@type">@type</option>
-                            }
+                        }
                     </select>
                     <span asp-validation-for="BuildingType" class="text-danger"></span>
                 </div>
-                 <hr class="hr-2 bg-primary mt-4">
-            <div class="d-flex justify-content-center col-md-12">
-                <button class="btn btn-primary font-weight-bold">Провери</button>
+                <hr class="hr-2 bg-primary mt-4">
+                <div class="d-flex justify-content-center col-md-12">
+                    <button class="btn btn-primary font-weight-bold" style="min-width:160px">Провери</button>
+                </div>
             </div>
-            </div>
-           
+
         </form>
-    
+
         <div class="form border-primary-4 rounded col-md-3 col-md-offset-7" style="padding-left:60px;">
             <br />
             <div class="d-flex justify-content-center">
@@ -121,7 +121,6 @@
 
 @section Scripts{
 
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
-
 
