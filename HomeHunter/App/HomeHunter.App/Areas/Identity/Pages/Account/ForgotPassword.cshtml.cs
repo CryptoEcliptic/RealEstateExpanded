@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using HomeHunter.Domain;
+using HomeHunter.Services.EmailSender;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -15,10 +16,12 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ForgotPasswordModel : PageModel
     {
+        private const string ValidEmailErrorMessage = "Моля, въведете валиден Email адрес";
+        private const string FieldIsRequiredErrorMessage = "Полето {0} e задължително!";
         private readonly UserManager<HomeHunterUser> _userManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IApplicationEmailSender _emailSender;
 
-        public ForgotPasswordModel(UserManager<HomeHunterUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<HomeHunterUser> userManager, IApplicationEmailSender emailSender)
         {
             _userManager = userManager;
             _emailSender = emailSender;
@@ -29,8 +32,8 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = FieldIsRequiredErrorMessage)]
+            [EmailAddress(ErrorMessage = ValidEmailErrorMessage)]
             public string Email { get; set; }
         }
 
