@@ -1,4 +1,5 @@
 ﻿using HomeHunter.Services.Models.Image;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,5 +21,7 @@ namespace HomeHunter.Services.Contracts
         Task<int> RemoveImages(string estateId);
 
         Task <IEnumerable<string>> GetImageIds(string realEstateId);
+
+        Task<string> ProcessPhotoAsync(IFormFile photo);
     }
 }

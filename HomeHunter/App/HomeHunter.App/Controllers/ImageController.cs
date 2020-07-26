@@ -24,7 +24,8 @@ namespace HomeHunter.App.Controllers
         public ImageController(ICloudinaryService cloudinaryService,
             IImageServices imageServices,
             IRealEstateServices realEstateServices,
-            IMapper mapper)
+            IMapper mapper
+            )
         {
             this.cloudinaryService = cloudinaryService;
             this.imageServices = imageServices;
@@ -57,8 +58,12 @@ namespace HomeHunter.App.Controllers
                     {
                         var imageId = Guid.NewGuid().ToString();
 
-                        var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
-                        var isImageAddedInDb = await this.imageServices.AddImageAsync(imageId, imageUrl, id, sequence);
+                        //var imageUrl = await this.cloudinaryService.UploadPictureAsync(image, imageId);
+                        //The code above is commented since Cloudinary is no longer used for saving the images.
+
+                        //Images are saved in the file system. The below method returns the image name, the whole url is no longer needed since the views use the relative path "~/images/imagename". Now in the Db in column Url we save the image name instead of the url. The url would be needed only when using Cloudinary.
+                        var imageName = await this.imageServices.ProcessPhotoAsync(image);
+                        var isImageAddedInDb = await this.imageServices.AddImageAsync(imageId, imageName, id, sequence);
 
                         sequence++;
                     }

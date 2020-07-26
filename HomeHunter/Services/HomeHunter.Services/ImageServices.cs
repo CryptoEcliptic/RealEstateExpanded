@@ -3,9 +3,12 @@ using HomeHunter.Data;
 using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Image;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,12 +23,18 @@ namespace HomeHunter.Services
         private readonly HomeHunterDbContext context;
         private readonly IMapper mapper;
         private readonly IRealEstateServices realEstateServices;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public ImageServices(HomeHunterDbContext context, IMapper mapper, IRealEstateServices realEstateServices)
+        public ImageServices(
+            HomeHunterDbContext context, 
+            IMapper mapper, 
+            IRealEstateServices realEstateServices, 
+            IHostingEnvironment hostingEnvironment)
         {
             this.context = context;
             this.mapper = mapper;
             this.realEstateServices = realEstateServices;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         public async Task<bool> AddImageAsync(string publicKey, string url, string estateId, int sequence)
@@ -163,6 +172,27 @@ namespace HomeHunter.Services
                 .ToListAsync();
                 
             return imageIds;
+        }
+
+        public async Task<string> ProcessPhotoAsync(IFormFile photo)
+        {
+            string uniqueFileName;
+            // The image must be uploaded to the images folder in wwwroot
+            // To get the path of the wwwroot folder we are using the inject
+            // HostingEnvironment service provided by ASP.NET Core
+            string uploadsFolder = await Task.Run(() => Path.Combine(hostingEnvironment.WebRootPath, "images"));
+            // To make sure the file name is unique we are appending a new
+            // GUID value and and an underscore to the file name
+            uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            // Use CopyTo() method provided by IFormFile interface to
+            // copy the file to wwwroot/images folder
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                photo.CopyTo(stream);
+            }
+
+            return uniqueFileName;
         }
     }
 }
