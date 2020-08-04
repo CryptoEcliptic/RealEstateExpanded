@@ -1,7 +1,7 @@
 ﻿@model HomeHunter.Models.ViewModels.Offer.OfferDetailsGuestViewModel
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
+
 <link rel="stylesheet" href="~/lib/assets/modal_images.css">
 <div class="row backgr-img-details">
     <div class="col-md-6 details-real-estate-container">
@@ -47,11 +47,11 @@
                 <tr>
                     @if (Model.Address != null)
                     {
-                        <tr>
-                            <th>@Html.DisplayNameFor(model => model.Address)</th>
-                            <td>@Html.DisplayFor(model => model.Address)</td>
-                        </tr>
-                        }
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Address)</th>
+                        <td>@Html.DisplayFor(model => model.Address)</td>
+                    </tr>
+                }
 
                     <tr>
                         <th>@Html.DisplayNameFor(model => model.RealEstateType)</th>

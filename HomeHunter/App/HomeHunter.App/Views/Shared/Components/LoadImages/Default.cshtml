@@ -5,7 +5,7 @@
 @foreach (var item in Model.Images.OrderBy(x => x.Sequence))
 {
   
-    <img id="myImg" src="@item.Url" class="myImages img-thumbnail img-h-block">
+    <img id="myImg" src="~/images/@item.Url" class="myImages img-thumbnail img-h-block">
     <div id="myModal" class="modal">
         <!-- The Close Button -->
         <span class="close">&times;</span>
