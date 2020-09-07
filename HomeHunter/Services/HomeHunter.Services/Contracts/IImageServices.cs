@@ -20,8 +20,10 @@ namespace HomeHunter.Services.Contracts
 
         Task<int> RemoveImages(string estateId);
 
-        Task <IEnumerable<string>> GetImageIds(string realEstateId);
+        Task <IEnumerable<string>> GetImageNames(string realEstateId);
 
         Task<string> ProcessPhotoAsync(IFormFile photo);
+
+        Task<bool> DeleteImageFile(string fileName);
     }
 }

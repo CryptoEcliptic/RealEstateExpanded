@@ -16,7 +16,6 @@ namespace HomeHunter.Services
 {
     public class ImageServices : IImageServices
     {
-        private const string ClodinaryImageFolderName = "RealEstates/";
         private const string InvalidImageParamsMessage = "Null image parameters!";
         private const string InvalidRealEstateIdMessage = "Invalid real estate Id!";
 
@@ -37,11 +36,11 @@ namespace HomeHunter.Services
             this.hostingEnvironment = hostingEnvironment;
         }
 
-        public async Task<bool> AddImageAsync(string publicKey, string url, string estateId, int sequence)
+        public async Task<bool> AddImageAsync(string publicKey, string url, string realEstateId, int sequence)
         {
             List<Image> images = new List<Image>();
 
-            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(estateId) || string.IsNullOrEmpty(publicKey))
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(realEstateId) || string.IsNullOrEmpty(publicKey))
             {
                 throw new ArgumentNullException(InvalidImageParamsMessage);
             }
@@ -49,7 +48,7 @@ namespace HomeHunter.Services
             var image = new Image
             {
                 Url = url,
-                RealEstateId = estateId,
+                RealEstateId = realEstateId,
                 Id = publicKey,
                 Sequence = sequence,
             };
@@ -159,19 +158,19 @@ namespace HomeHunter.Services
             return affectedRows;
         }
 
-        public async Task<IEnumerable<string>> GetImageIds(string realEstateId)
+        public async Task<IEnumerable<string>> GetImageNames(string realEstateId)
         {
             if (string.IsNullOrEmpty(realEstateId))
             {
                 throw new ArgumentNullException(InvalidRealEstateIdMessage);
             }
 
-            var imageIds = await this.context.Images
+            var imageNames = await this.context.Images
                 .Where(x => x.RealEstateId == realEstateId)
-                .Select(x => ClodinaryImageFolderName + x.Id)
+                .Select(x => x.Url)
                 .ToListAsync();
                 
-            return imageIds;
+            return imageNames;
         }
 
         public async Task<string> ProcessPhotoAsync(IFormFile photo)
@@ -193,6 +192,21 @@ namespace HomeHunter.Services
             }
 
             return uniqueFileName;
+        }
+
+        public async Task<bool> DeleteImageFile(string fileName)
+        {
+            string uploadsFolder = await Task.Run(() => Path.Combine(hostingEnvironment.WebRootPath, "images"));
+
+            string fileToBeDeleted = Path.Combine(uploadsFolder, fileName);
+
+            if (System.IO.File.Exists(fileToBeDeleted))
+            {
+                System.IO.File.Delete(fileToBeDeleted);
+                return true;
+            }
+
+            return false;
         }
     }
 }
