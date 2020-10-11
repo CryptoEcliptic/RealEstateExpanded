@@ -36,10 +36,10 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
 
             var result = await _userManager.ConfirmEmailAsync(user, code);
 
-            //if (!result.Succeeded)
-            //{
-            //    throw new InvalidOperationException($"Error confirming email for user with ID '{userId}':");
-            //}
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException($"Error confirming email for user with ID '{userId}':");
+            }
 
             return Page();
         }
