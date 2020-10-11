@@ -97,7 +97,7 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account
                     {
                         return NotFound(NotLoadUserErrorMessage);
                     }
-                    user.LastLogin = DateTime.UtcNow;
+                    user.LastLogin = DateTime.Now;
                     var lastLoginResult = await this.userManager.UpdateAsync(user);
                     var roles = await userManager.GetRolesAsync(user);
 

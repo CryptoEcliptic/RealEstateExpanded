@@ -156,9 +156,9 @@ namespace HomeHunter.Services
             user.UserName = null;
             user.PasswordHash = null;
             user.EmailConfirmed = false;
-            user.DeletedOn = DateTime.UtcNow;
+            user.DeletedOn = DateTime.Now;
 
-            user.ModifiedOn = DateTime.UtcNow;
+            user.ModifiedOn = DateTime.Now;
 
             try
             {

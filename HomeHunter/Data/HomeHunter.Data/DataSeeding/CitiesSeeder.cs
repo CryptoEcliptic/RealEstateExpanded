@@ -273,7 +273,7 @@ namespace HomeHunter.Data.DataSeeding
                     createdCities.Add(new City
                     {
                         Name = name,
-                        CreatedOn = DateTime.UtcNow,
+                        CreatedOn = DateTime.Now,
                     });
                 }
             }

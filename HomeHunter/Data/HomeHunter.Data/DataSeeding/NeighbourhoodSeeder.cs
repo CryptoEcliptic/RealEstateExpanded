@@ -29,7 +29,7 @@ namespace HomeHunter.Data.DataSeeding
                     createdNeighbourhoods.Add(new Neighbourhood
                     {
                         Name = name,
-                        CreatedOn = DateTime.UtcNow,
+                        CreatedOn = DateTime.Now,
                         CityId = 1,
                     });
                 }

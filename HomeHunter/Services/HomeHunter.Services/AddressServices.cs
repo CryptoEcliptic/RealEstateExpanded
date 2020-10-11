@@ -57,7 +57,7 @@ namespace HomeHunter.Services
             }
 
             address.Description = description;
-            address.ModifiedOn = DateTime.UtcNow;
+            address.ModifiedOn = DateTime.Now;
 
             this.context.Update(address);
             await this.context.SaveChangesAsync();
@@ -75,7 +75,7 @@ namespace HomeHunter.Services
             }
 
             address.IsDeleted = true;
-            address.DeletedOn = DateTime.UtcNow;
+            address.DeletedOn = DateTime.Now;
 
             try
             {

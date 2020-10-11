@@ -26,7 +26,7 @@ namespace HomeHunter.Infrastructure.Middlewares
                     Path = "/",
                     HttpOnly = true,
                     Secure = true,
-                    Expires = DateTime.UtcNow.AddDays(8),
+                    Expires = DateTime.Now.AddDays(8),
                 }); 
             }
             await this.requestDelegate(context);

@@ -118,7 +118,7 @@ namespace HomeHunter.Services
             realEstateToEdit.BuildingType = await this.buildingTypeServices.GetBuildingTypeAsync(model.BuildingType);
             realEstateToEdit.HeatingSystem = await this.heatingSystemServices.GetHeatingSystemAsync(model.HeatingSystem);
             realEstateToEdit.PricePerSquareMeter = model.Price / (decimal)model.Area;
-            realEstateToEdit.ModifiedOn = DateTime.UtcNow;
+            realEstateToEdit.ModifiedOn = DateTime.Now;
 
             this.mapper.Map<RealEstateEditServiceModel, RealEstate>(model, realEstateToEdit);
             return await UpdateRealEstateInTheDb(realEstateToEdit);

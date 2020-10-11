@@ -16,6 +16,6 @@ namespace HomeHunter.Services.Models.User
 
         public string ConfirmPassword { get; set; }
 
-        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
     }
 }

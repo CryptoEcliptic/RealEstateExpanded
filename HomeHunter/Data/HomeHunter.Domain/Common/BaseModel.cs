@@ -8,7 +8,7 @@ namespace HomeHunter.Domain.Common
         [Key]
         public TKey Id { get; set; }
 
-        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         public DateTime? ModifiedOn { get; set; }
 

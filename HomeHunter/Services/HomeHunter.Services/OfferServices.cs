@@ -220,7 +220,7 @@ namespace HomeHunter.Services
                 throw new ArgumentNullException(OfferNotFoundMessage);
             }
 
-            offer.ModifiedOn = DateTime.UtcNow;
+            offer.ModifiedOn = DateTime.Now;
             offer.OfferType = model.OfferType == GlobalConstants.OfferTypeSaleName ? offer.OfferType = OfferType.Sale : OfferType.Rental;
 
             this.mapper.Map<OfferEditServiceModel, Offer>(model, offer);
@@ -288,7 +288,7 @@ namespace HomeHunter.Services
             }
 
             offer.IsOfferActive = false;
-            offer.ModifiedOn = DateTime.UtcNow;
+            offer.ModifiedOn = DateTime.Now;
             
             int changedRows = 0;
             try
@@ -316,8 +316,8 @@ namespace HomeHunter.Services
             }
 
             offer.IsOfferActive = true;
-            offer.ModifiedOn = DateTime.UtcNow;
-            offer.CreatedOn = DateTime.UtcNow;
+            offer.ModifiedOn = DateTime.Now;
+            offer.CreatedOn = DateTime.Now;
 
             int changedRows = 0;
             try
@@ -344,9 +344,9 @@ namespace HomeHunter.Services
             offer.IsDeleted = true;
             offer.RealEstate.IsDeleted = true;
             offer.RealEstate.Address.IsDeleted = true;
-            offer.DeletedOn = DateTime.UtcNow;
-            offer.RealEstate.DeletedOn = DateTime.UtcNow;
-            offer.RealEstate.Address.DeletedOn = DateTime.UtcNow;
+            offer.DeletedOn = DateTime.Now;
+            offer.RealEstate.DeletedOn = DateTime.Now;
+            offer.RealEstate.Address.DeletedOn = DateTime.Now;
 
             var imageIdsToDeleteFromCloudinary = await this.imageServices.GetImageNames(offer.RealEstate.Id);
             this.cloudinaryService.DeleteCloudinaryImages(imageIdsToDeleteFromCloudinary);

@@ -36,7 +36,7 @@ namespace HomeHunter.Data.DataSeeding
                     createdBuildigTypes.Add(new BuildingType
                     {
                         Name = type,
-                        CreatedOn = DateTime.UtcNow,
+                        CreatedOn = DateTime.Now,
                     });
                 }
             }

@@ -30,7 +30,7 @@ namespace HomeHunter.Infrastructure.ValidationAttributes
             var intValue = (int?)value;
             if (intValue > DateTime.UtcNow.Year + MaxYearsAhead)
             {
-                return new ValidationResult(validationContext?.DisplayName + "та не може да бъде по-голяма от " + (DateTime.UtcNow.Year + MaxYearsAhead));
+                return new ValidationResult(validationContext?.DisplayName + "та не може да бъде по-голяма от " + (DateTime.Now.Year + MaxYearsAhead));
             }
 
             if (intValue < minYear)

@@ -27,7 +27,7 @@ namespace HomeHunter.Data.DataSeeding
             {
                 if (!heatingSystemTypesFromDb.Any(x => x.Name == type))
                 {
-                    createdTypes.Add(new HeatingSystem{ Name = type, CreatedOn = DateTime.UtcNow });
+                    createdTypes.Add(new HeatingSystem{ Name = type, CreatedOn = DateTime.Now });
                 }
             }
 

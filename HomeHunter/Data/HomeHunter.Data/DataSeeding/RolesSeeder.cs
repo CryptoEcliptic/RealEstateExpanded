@@ -64,7 +64,7 @@ namespace HomeHunter.Data.DataSeeding
                 FirstName = "AdminFirstName",
                 LastName = "AdminLastName",
                 EmailConfirmed = true,
-                CreatedOn = DateTime.UtcNow,
+                CreatedOn = DateTime.Now,
             };
 
             var password = "123456";
