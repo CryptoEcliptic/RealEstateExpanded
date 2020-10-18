@@ -25,5 +25,7 @@ namespace HomeHunter.Models.BindingModels.Home
         public string Name { get; set; }
 
         public string ReferenceNumber { get; set; }
+
+        public bool ControlCheckbox { get; set; }
     }
 }

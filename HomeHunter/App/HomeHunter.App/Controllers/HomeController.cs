@@ -99,6 +99,16 @@ namespace HomeHunter.App.Controllers
                 return new RedirectToActionResult("Offer", "Details", model.OfferId);
             }
 
+
+            //If the control checkbox is marked it is considered that the form is not filled by a person.
+            //In that case we return a successful mesage but the contact form is not actualy sent. This is a bot trap.
+            if (model.ControlCheckbox)
+            {
+                this.TempData["SuccessfullSubmition"] = SuccessfullySentQuestionMessage;
+
+                return Redirect($"/Offer/Details/{model.OfferId}");
+            }
+
             await this.emailSender.SendContactFormEmailAsync(model.Email, model.Name + " " + model.ReferenceNumber, model.Message);
 
             this.TempData["SuccessfullSubmition"] = SuccessfullySentQuestionMessage;
