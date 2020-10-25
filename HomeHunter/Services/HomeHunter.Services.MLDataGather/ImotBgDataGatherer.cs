@@ -53,7 +53,7 @@ namespace HomeHunter.Services.MLDataGather
                         var html = await GetHtml(url);
                         var document = await parser.ParseDocumentAsync(html);
                         var district = html.GetStringBetween(
-                            "<span style=\"font-size:16px; font-weight:bold;\">",
+                            "<span style=\"font-size:14px; margin:8px 0; display:inline-block\">",
                             "</span>")?.Trim();
                         if (district?.Contains("<br>") == true)
                         {
@@ -62,26 +62,26 @@ namespace HomeHunter.Services.MLDataGather
                         }
 
                         var floorInfoString = html.GetStringBetween(
-                            "Етаж:</td><td width=100 style=\"padding-top:3px;\"><b>",
-                            "</b></td>");
+                           "<li>Етаж:</li><li>",
+                           "</li>").Replace("Партер", "1");
                         var floorMatch = floorsRegex.Match(floorInfoString);
 
-                        var centralHeating = html.GetStringBetween("ТEЦ:</td><td width=100 style=\"padding-top:3px;\"><b>",
-                            "</b></td>");
+                        var centralHeating = html.GetStringBetween("<li>ТEЦ:</li><li>",
+                            "</li>");
 
                         var typeAndInfoString = html.GetStringBetween(
-                            "Вид строителство:</td><td width=100 style=\"padding-top:3px;\"><b>",
-                            "</b></td>");
+                            "<li>Строителство:</li><li>",
+                            "</li>");
                         var typeAndInfoMatch = typeAndInfoRegex.Match(typeAndInfoString);
                         var property = new RawProperty
                         {
                             Url = url,
                             Size = size,
                             District = district,
-                            Type =
-                                               html.GetStringBetween(
-                                                   "<span style=\"font-size:18px; font-weight:bold;\">",
-                                                   "</span>")?.Trim(),
+                            Type = html.GetStringBetween(
+                                                   "<h1 style=\"margin: 0; font-size:18px;\">",
+                                                   "</h1>")?.Replace("Продава", string.Empty).Trim(),
+
                             Floor =
                                                floorMatch.Success ? floorMatch.Groups["floor"].Value.ToInteger() : 0,
                             TotalFloors =
@@ -102,7 +102,7 @@ namespace HomeHunter.Services.MLDataGather
                         properties.Add(property);
                     }
 
-                    Console.Write($"{page}({properties.Count}), ");
+                    Console.Write($"{page}({listItems.Count}), ");
                 }
 
                 Console.WriteLine($" => Total: {properties.Count}");
