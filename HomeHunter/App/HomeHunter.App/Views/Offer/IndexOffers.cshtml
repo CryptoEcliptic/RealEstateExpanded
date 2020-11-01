@@ -176,17 +176,23 @@
     </div>
 
 @section Scripts{
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
-            $('#table_id').DataTable({
+            $('#table_id').dataTable({
+                "language": {
+                    search: "Търсене",
+                    sLengthMenu: "Показване на _MENU_ резултата",
+                    paginate: {
+                        first: "Начало",
+                        previous: "Предишна",
+                        next: "Следваща",
+                        last: "Последна страница"
+                    },
+                    sInfo: "Показване на резултати от _START_ до _END_ от общо _TOTAL_",
+                }
             });
         });
     </script>
-
-    <script>
-
-    </script>
-
 }
 
 
