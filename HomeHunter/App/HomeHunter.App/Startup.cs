@@ -128,11 +128,10 @@ namespace HomeHunter.App
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<HomeHunterDbContext>();
-
+                //Bellow is not necessary for application deployment. The DB is created and tha data is seeded via SQL script
                 //if (env.IsDevelopment())
                 //{
                 //    dbContext.Database.EnsureCreated();
-
                 //}
 
                 //dbContext.Database.EnsureCreated();

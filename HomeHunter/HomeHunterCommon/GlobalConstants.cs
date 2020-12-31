@@ -7,7 +7,7 @@ namespace HomeHunter.Common
     {
         public const string AdministratorRoleName = "Admin";
         public const string UserRoleName = "User";
-        public const string CompanyName = "Имотите ООД";
+        public const string CompanyName = "Консултантска Къща Имотите ЕООД";
         public const string CompanyWebSite = "https://kkimotite.com";
         public const int UtcTimeCompensationZone = 2;
         public const string DateTimeVisualizationFormat = "dd-MM-yyyy HH:mm";

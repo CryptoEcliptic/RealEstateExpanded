@@ -11,8 +11,8 @@ namespace HomeHunter.Services.EmailSender
         private const string SenderEmail = "no-reply@imotite.bg";
         private const string NameOfTheSender = "Imotite";
 
-        private const string ContactFormEmailDestination = "writetorado@abv.bg";
-        private const string ContactOfficialName = "Radoslav Vassilev";
+        private const string ContactFormEmailDestination = "imotite_estate@abv.bg";
+        private const string ContactOfficialName = "KK Imotite";
 
         public EmailSender(IConfiguration Configuration)
         {
