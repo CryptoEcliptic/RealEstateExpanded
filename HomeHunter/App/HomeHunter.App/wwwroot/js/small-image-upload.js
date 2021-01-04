@@ -39,7 +39,7 @@
 var boxes = document.querySelectorAll('.sm-upl-box');
 
     for (let i = 0; i < boxes.length; i++) {
-        if (window.CP.shouldStopExecution(1)) { break; }
+        //if (window.CP.shouldStopExecution(1)) { break; } //TODO Rado - Removed due to cannot read property of undefined. To make a check for that
         let box = boxes[i];
         initDropEffect(box);
         initImageUpload(box);

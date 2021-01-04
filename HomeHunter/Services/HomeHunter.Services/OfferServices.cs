@@ -348,8 +348,11 @@ namespace HomeHunter.Services
             offer.RealEstate.DeletedOn = DateTime.Now;
             offer.RealEstate.Address.DeletedOn = DateTime.Now;
 
-            var imageIdsToDeleteFromCloudinary = await this.imageServices.GetImageNames(offer.RealEstate.Id);
-            this.cloudinaryService.DeleteCloudinaryImages(imageIdsToDeleteFromCloudinary);
+            var imageIdsToDelete = await this.imageServices.GetImageNames(offer.RealEstate.Id);
+            foreach (var image in imageIdsToDelete)
+            {
+                await this.imageServices.DeleteImageFile(image);
+            }
 
             await this.imageServices.RemoveImages(offer.RealEstate.Id);
             int changedRows = 0;

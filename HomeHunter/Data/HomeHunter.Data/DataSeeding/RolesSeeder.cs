@@ -47,22 +47,22 @@ namespace HomeHunter.Data.DataSeeding
             {
                 await CreateAdminUserAsync(userManager);
             }
-            else
-            {
-                var user = await userManager.FindByEmailAsync("writetorado@abv.bg");
-                user.PasswordHash = this.configuration["AdminUserPasswordHash"];
-                await userManager.UpdateAsync(user);
-            } 
+            //else
+            //{
+            //    var user = await userManager.FindByEmailAsync("writetorado@abv.bg");
+            //    user.PasswordHash = this.configuration["AdminUserPasswordHash"];
+            //    await userManager.UpdateAsync(user);
+            //} 
         }
 
         private static async Task CreateAdminUserAsync(UserManager<HomeHunterUser> userManager)
         {
             var user = new HomeHunterUser
             {
-                UserName = "writetorado@abv.bg",
-                Email = "writetorado@abv.bg",
-                FirstName = "AdminFirstName",
-                LastName = "AdminLastName",
+                UserName = "ivetavassileva@abv.bg",
+                Email = "ivetavassileva@abv.bg",
+                FirstName = "Ивета",
+                LastName = "Василева",
                 EmailConfirmed = true,
                 CreatedOn = DateTime.Now,
             };
