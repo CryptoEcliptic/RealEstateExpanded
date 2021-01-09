@@ -1,6 +1,8 @@
 # HomeHunterExpanded
 This repository contains an extended version of the initial HomeHunter project which was introduced as an exam task for the SoftUni course ASP .NET Core in September 2019.
 
+The project is deployed at http://kkimotite.com
+
 🛠 Used technologies:
 - Domain-driven design
 - ASP.NET Core MVC
