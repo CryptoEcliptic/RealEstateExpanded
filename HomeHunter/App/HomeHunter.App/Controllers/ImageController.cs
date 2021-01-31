@@ -85,6 +85,7 @@ namespace HomeHunter.App.Controllers
         }
 
         [HttpPost]
+        [RequestFormLimits(MultipartBodyLengthLimit = 104857600)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, ImageUploadEditBindingModel model)
         {
