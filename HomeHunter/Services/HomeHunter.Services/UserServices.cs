@@ -6,18 +6,16 @@ using HomeHunter.Services.Contracts;
 using HomeHunter.Services.EmailSender;
 using HomeHunter.Services.Models.User;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace HomeHunter.Services
 {
-    public class UserServices : PageModel, IUserServices
+    public class UserServices : IUserServices
     {
         private const string UnsuccessfullyCreatedUserMessage = "User was not created!";
         private const string DeleteAdminDenialMessage = "Cannot delete Admin user!";

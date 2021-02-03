@@ -50,15 +50,15 @@
 
 
   <ItemGroup>
-    <None Update="MLPricePrediction\MLModel.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Folder Include="Logs\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <Folder Include="Logs\" />
-    <Folder Include="wwwroot\images\" />
+    <None Update="MLPricePrediction\MLModel.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
