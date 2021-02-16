@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using HomeHunter.Data;
-using HomeHunter.Domain;
 using HomeHunter.Services.Contracts;
 using HomeHunter.Services.Models.Image;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,16 +19,16 @@ namespace HomeHunter.Services
     {
         private const string InvalidImageParamsMessage = "Null image parameters!";
         private const string InvalidRealEstateIdMessage = "Invalid real estate Id!";
-
+        private const int MaxImageWidth = 1600;
         private readonly HomeHunterDbContext context;
         private readonly IMapper mapper;
         private readonly IRealEstateServices realEstateServices;
         private readonly IHostingEnvironment hostingEnvironment;
 
         public ImageServices(
-            HomeHunterDbContext context, 
-            IMapper mapper, 
-            IRealEstateServices realEstateServices, 
+            HomeHunterDbContext context,
+            IMapper mapper,
+            IRealEstateServices realEstateServices,
             IHostingEnvironment hostingEnvironment)
         {
             this.context = context;
@@ -38,14 +39,14 @@ namespace HomeHunter.Services
 
         public async Task<bool> AddImageAsync(string publicKey, string url, string realEstateId, int sequence)
         {
-            List<Image> images = new List<Image>();
+            List<Domain.Image> images = new List<Domain.Image>();
 
             if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(realEstateId) || string.IsNullOrEmpty(publicKey))
             {
                 throw new ArgumentNullException(InvalidImageParamsMessage);
             }
 
-            var image = new Image
+            var image = new Domain.Image
             {
                 Url = url,
                 RealEstateId = realEstateId,
@@ -116,7 +117,7 @@ namespace HomeHunter.Services
                 throw new ArgumentNullException(InvalidImageParamsMessage);
             }
 
-            var image = new Image
+            var image = new Domain.Image
             {
                 Url = url,
                 RealEstateId = estateId,
@@ -169,7 +170,7 @@ namespace HomeHunter.Services
                 .Where(x => x.RealEstateId == realEstateId)
                 .Select(x => x.Url)
                 .ToListAsync();
-                
+
             return imageNames;
         }
 
@@ -184,13 +185,15 @@ namespace HomeHunter.Services
             // GUID value and and an underscore to the file name
             uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
             string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            // Use CopyTo() method provided by IFormFile interface to
-            // copy the file to wwwroot/images folder
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                photo.CopyTo(stream);
-            }
 
+            using (var stream = photo.OpenReadStream())
+            {
+                using (var image = Image.Load(stream))
+                {
+                    await ResizeAndUploadImageAsync(image, MaxImageWidth, filePath);
+                }
+            }
+            
             return uniqueFileName;
         }
 
@@ -207,6 +210,23 @@ namespace HomeHunter.Services
             }
 
             return false;
+        }
+
+        private async Task ResizeAndUploadImageAsync(SixLabors.ImageSharp.Image image, int maxWidth, string filePath)
+        {
+            if (image.Width > maxWidth)
+            {
+                // Resize the image.
+                image.Mutate(x => x.Resize(image.Width / 3, image.Height / 3));
+
+                //Save the image 
+                await image.SaveAsJpegAsync(filePath);
+
+            }
+            else
+            {    //Save the image 
+                await image.SaveAsJpegAsync(filePath);
+            } 
         }
     }
 }
