@@ -129,20 +129,18 @@ namespace HomeHunter.App
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<HomeHunterDbContext>();
                 //Bellow is not necessary for application deployment. The DB is created and tha data is seeded via SQL script
-                //if (env.IsDevelopment())
-                //{
-                //    dbContext.Database.EnsureCreated();
-                //}
+                if (env.IsDevelopment())
+                {
+                    dbContext.Database.EnsureCreated();
 
-                //dbContext.Database.EnsureCreated();
-
-                ////Database initial seeding functionality
-                //new RolesSeeder(this.Configuration).SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                //new RealEstateTypesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                //new HeatingSystemSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                //new CitiesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                //new NeighbourhoodSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                //new BuildingTypeSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                    //Database initial seeding functionality
+                    new RolesSeeder(this.Configuration).SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                    new RealEstateTypesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                    new HeatingSystemSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                    new CitiesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                    new NeighbourhoodSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                    new BuildingTypeSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                }
             }
 
             if (env.IsDevelopment())
