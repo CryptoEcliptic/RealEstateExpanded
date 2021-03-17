@@ -67,7 +67,7 @@ namespace HomeHunter.Data.DataSeeding
                 CreatedOn = DateTime.Now,
             };
 
-            var password = "123456";
+            var password = "Password123";
 
             var result = await userManager.CreateAsync(user, password);
 

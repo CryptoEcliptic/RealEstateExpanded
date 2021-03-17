@@ -51,6 +51,18 @@ namespace HomeHunter.Data
                .Property(p => p.Id)
                .ValueGeneratedOnAdd();
 
+            builder.Entity<HomeHunterUser>()
+              .Property(p => p.Id)
+              .ValueGeneratedOnAdd();
+
+            builder.Entity<VisitorSession>()
+             .Property(p => p.Id)
+             .ValueGeneratedOnAdd();
+
+            builder.Entity<Image>()
+            .Property(p => p.Id)
+            .ValueGeneratedOnAdd();
+
             base.OnModelCreating(builder);
         }
     }

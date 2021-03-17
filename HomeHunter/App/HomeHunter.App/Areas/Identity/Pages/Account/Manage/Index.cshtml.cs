@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using HomeHunter.Domain;
+using HomeHunter.Services.EmailSender;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,12 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<HomeHunterUser> _userManager;
         private readonly SignInManager<HomeHunterUser> _signInManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IApplicationEmailSender _emailSender;
 
         public IndexModel(
             UserManager<HomeHunterUser> userManager,
             SignInManager<HomeHunterUser> signInManager,
-            IEmailSender emailSender)
+            IApplicationEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -40,7 +41,6 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
             [EmailAddress]
             public string Email { get; set; }
 
@@ -65,10 +65,9 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                Email = email,
+                Email = userName,
                 PhoneNumber = phoneNumber
             };
-
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
 
             return Page();
@@ -90,12 +89,12 @@ namespace HomeHunter.App.Areas.Identity.Pages.Account.Manage
             var email = await _userManager.GetEmailAsync(user);
             if (Input.Email != email)
             {
-                var setEmailResult = await _userManager.SetEmailAsync(user, Input.Email);
-                if (!setEmailResult.Succeeded)
-                {
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    throw new InvalidOperationException($"Unexpected error occurred setting email for user with ID '{userId}'.");
-                }
+                //var setEmailResult = await _userManager.SetEmailAsync(user, Input.Email);
+                //if (!setEmailResult.Succeeded)
+                //{
+                //    var userId = await _userManager.GetUserIdAsync(user);
+                //    throw new InvalidOperationException($"Unexpected error occurred setting email for user with ID '{userId}'.");
+                //}
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
