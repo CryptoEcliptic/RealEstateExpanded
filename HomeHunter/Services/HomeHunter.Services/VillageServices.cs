@@ -29,7 +29,7 @@ namespace HomeHunter.Services
                     Name = name
                 };
 
-                await this.context.Villages.AddAsync(village);
+                this.context.Villages.Add(village);
                 return village;
             }
 

@@ -65,7 +65,7 @@ namespace HomeHunter.Services
             offer.ReferenceNumber = referenceNumber;
             offer.IsOfferActive = true;
            
-            await this.context.Offers.AddAsync(offer);
+            this.context.Offers.Add(offer);
             var changedRows = await this.context.SaveChangesAsync();
 
             if (changedRows == 0)

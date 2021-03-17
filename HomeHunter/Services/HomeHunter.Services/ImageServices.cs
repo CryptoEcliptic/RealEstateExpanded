@@ -125,7 +125,7 @@ namespace HomeHunter.Services
                 Sequence = sequence
             };
 
-            await this.context.Images.AddAsync(image);
+            this.context.Images.Add(image);
             await this.context.SaveChangesAsync();
 
             return true;

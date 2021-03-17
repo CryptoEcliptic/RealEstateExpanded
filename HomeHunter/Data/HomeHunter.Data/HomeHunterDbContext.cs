@@ -36,10 +36,20 @@ namespace HomeHunter.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<RealEstate>()
-                .HasOne(x => x.Offer)
-                .WithOne(x => x.RealEstate)
-                .HasForeignKey<Offer>(x => x.RealEstateId)
-                .OnDelete(DeleteBehavior.Restrict);
+               .HasOne(x => x.Offer)
+               .WithOne(x => x.RealEstate)
+               .HasForeignKey<Offer>(x => x.RealEstateId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            //From EF Core 3.0 the Id is not created by default and the property is null when saved into the Db. Hence Db exception is thrown.
+            //Below configuration generates Id when adding the object into the Db.
+            builder.Entity<RealEstate>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+
+            builder.Entity<Offer>()
+               .Property(p => p.Id)
+               .ValueGeneratedOnAdd();
 
             base.OnModelCreating(builder);
         }

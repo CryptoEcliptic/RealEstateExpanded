@@ -44,7 +44,7 @@ namespace HomeHunter.Data.DataSeeding
             {
                 if (!realEstateTypesFromDb.Any(x => x.TypeName == type.TypeName))
                 {
-                    await dbContext.RealEstateTypes.AddAsync(type);
+                    dbContext.RealEstateTypes.Add(type);
                     
                 }
             }

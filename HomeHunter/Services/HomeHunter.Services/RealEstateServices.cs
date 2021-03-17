@@ -144,8 +144,8 @@ namespace HomeHunter.Services
         }
 
         private async Task<string> AddRealEstateToTheDb(RealEstate realEstate)
-        {
-            await this.context.RealEstates.AddAsync(realEstate);
+        {       
+            this.context.RealEstates.Add(realEstate);
             int affectedRows = await this.context.SaveChangesAsync();
 
             if (affectedRows == 0)

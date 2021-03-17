@@ -21,6 +21,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.ML;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -50,31 +51,32 @@ namespace HomeHunter.App
             services
                .AddIdentity<HomeHunterUser, IdentityRole>(options =>
                {
-                   options.Password.RequireDigit = false;
-                   options.Password.RequireLowercase = false;
-                   options.Password.RequireUppercase = false;
+                   options.Password.RequireDigit = true;
+                   options.Password.RequireLowercase = true;
+                   options.Password.RequireUppercase = true;
                    options.Password.RequireNonAlphanumeric = false;
                    options.Password.RequiredLength = 6;
                    options.SignIn.RequireConfirmedEmail = false;
                })
                .AddEntityFrameworkStores<HomeHunterDbContext>()
-               .AddDefaultTokenProviders()
-               .AddDefaultUI(UIFramework.Bootstrap4);
+               .AddDefaultTokenProviders();
+            //.AddDefaultUI(UIFrameworkAttribute(IdentityBuilder builder));
+            //.AddDefaultUI(UIFramework.Bootstrap4);
 
-            //Cloudinary service
+            ////Cloudinary service. Currently not in use. Some controllers have it as a dependancy.
+            ///Not removing it in case we have to switch back using Cloudinary cloud.
             Account cloudinaryCredentails = new Account(
                 this.Configuration["Cloudinary:CloudName"],
                 this.Configuration["Cloudinary:ApiKey"],
                 this.Configuration["Cloudinary:ApiSecret"]
                 );
-
             Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentails);
             services.AddSingleton(cloudinaryUtility);
 
             //ML Regression Price prediction
             services.AddPredictionEnginePool<InputModel, OutputModel>()
             .FromFile(modelName: "RegressionAnalysisModel", filePath: @"MLPricePrediction\MLModel.zip", watchForChanges: true);
- 
+
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -91,8 +93,8 @@ namespace HomeHunter.App
             services.AddTransient<IImageServices, ImageServices>();
             services.AddTransient<IOfferServices, OfferServices>();
             services.AddTransient<IUserServices, UserServices>();
-            services.AddTransient<IStatisticServices, StatisticServices>();       
-            services.AddTransient<IReferenceNumberGenerator, ReferenceNumberGenerator>();       
+            services.AddTransient<IStatisticServices, StatisticServices>();
+            services.AddTransient<IReferenceNumberGenerator, ReferenceNumberGenerator>();
             services.AddTransient<IVisitorSessionServices, VisitorSessionServices>();
             services.AddTransient<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
 
@@ -100,10 +102,10 @@ namespace HomeHunter.App
 
             services.AddResponseCaching();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            services.AddControllersWithViews();
+            services.AddRazorPages()
                 .AddRazorPagesOptions(options =>
                 {
-                    options.AllowAreas = true;
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
                 })
                 .AddMvcOptions(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
@@ -122,30 +124,29 @@ namespace HomeHunter.App
 
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Seed data on application startup
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<HomeHunterDbContext>();
-                //Bellow is not necessary for application deployment. The DB is created and tha data is seeded via SQL script
-                if (env.IsDevelopment())
-                {
-                    dbContext.Database.EnsureCreated();
-
-                    //Database initial seeding functionality
-                    new RolesSeeder(this.Configuration).SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                    new RealEstateTypesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                    new HeatingSystemSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                    new CitiesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                    new NeighbourhoodSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                    new BuildingTypeSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                }
-            }
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                // Seed data on application startup
+                using (var serviceScope = app.ApplicationServices.CreateScope())
+                {
+                    var dbContext = serviceScope.ServiceProvider.GetRequiredService<HomeHunterDbContext>();
+                    //Bellow is not necessary for application deployment. The DB is created and tha data is seeded via SQL script
+
+                    dbContext.Database.EnsureCreated();
+
+                    //Database initial seeding functionality
+                    //new RolesSeeder(this.Configuration).SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                    //new RealEstateTypesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                    //new HeatingSystemSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                    //new CitiesSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                    //new NeighbourhoodSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                    //new BuildingTypeSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+
+                }
             }
             else
             {
@@ -157,29 +158,35 @@ namespace HomeHunter.App
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseResponseCaching();
             app.UseCookiePolicy();
+
+            app.UseRouting();
+
             app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseResponseCaching();
 
             //MiddleWare for counting visitors
             app.UseMiddleware(typeof(VisitorCounterMiddleware));
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "areaRoute",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+                endpoints.MapAreaControllerRoute(
+                    "administration",
+                    "administration",
+                    "Administration/{controller=Home}/{action=Index}/{id?}");
 
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    "default", "{controller=Home}/{action=Index}/{id?}");
             });
 
             app.Run(context =>
             {
                 context.Response.StatusCode = 404;
                 return Task.FromResult(0);
-            });
+            }); 
         }
     }
 }

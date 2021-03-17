@@ -28,7 +28,7 @@ namespace HomeHunter.Services
                 Neighbourhood = neighbourhood
             };
 
-            await this.context.Addresses.AddAsync(address);
+            this.context.Addresses.Add(address);
             return address;
         }
 
